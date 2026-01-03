@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Sensi ULTRA PLUS</title>
+
+<style>
+:root{
+  --red:#ff0033;
+  --red2:#ff5a73;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#25000a,#000);
+  color:#fff;
+}
+.neon-flow{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(120deg,transparent,rgba(255,0,50,.06),transparent),
+    radial-gradient(circle at 20% 30%,rgba(255,0,50,.07),transparent 40%),
+    radial-gradient(circle at 80% 70%,rgba(255,0,50,.07),transparent 40%);
+  animation:flow 8s linear infinite;
+  pointer-events:none;
+}
+@keyframes flow{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
+.container{
+  max-width:460px;
+  margin:auto;
+  padding:20px;
+}
+h1{
+  text-align:center;
+  color:var(--red);
+  text-shadow:0 0 30px var(--red);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  50%{text-shadow:0 0 50px var(--red2)}
+}
+h2{
+  text-align:center;
+  margin-top:-10px;
+  color:#ff7b8c;
+  font-size:15px;
+}
+.card{
+  margin-top:25px;
+  background:rgba(255,0,60,.08);
+  border:1px solid var(--red);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 0 45px rgba(255,0,60,.45);
+}
+select,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:14px;
+  font-size:15px;
+  border:none;
+}
+select{
+  background:#0f0f0f;
+  color:#fff;
+  border:1px solid var(--red);
+}
+button{
+  background:linear-gradient(90deg,var(--red),var(--red2));
+  color:#fff;
+  font-weight:bold;
+  box-shadow:0 0 18px var(--red);
+}
+button:active{transform:scale(.95)}
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
+.resultado{
+  margin-top:15px;
+  font-size:14px;
+  line-height:1.7;
+}
+.neon{
+  color:var(--red);
+  text-shadow:0 0 12px var(--red);
+  font-weight:bold;
+}
+.footer{
+  margin:25px 0;
+  text-align:center;
+  font-size:12px;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+<div class="neon-flow"></div>
+
+<div class="container">
+<h1>GERADOR DE SENSI</h1>
+<h2>Leozinhuuu Sensis – ULTRA PLUS</h2>
+
+<div class="card">
+
+<select id="marca" onchange="atualizarModelos()">
+<option value="">Marca do celular</option>
+<option>Samsung</option>
+<option>Xiaomi</option>
+<option>Motorola</option>
+<option>Realme</option>
+<option>Infinix</option>
+<option>Oppo</option>
+<option>Vivo</option>
+<option>Asus</option>
+<option>Apple</option>
+<option>Huawei</option>
+<option>LG</option>
+<option>Nokia</option>
+<option>Sony</option>
+<option>Outro</option>
+</select>
+
+<select id="modelo">
+<option>Modelo do celular</option>
+</select>
+
+<select id="perfil">
+<option value="">Perfil de jogo</option>
+<option value="rush">Rush / X1</option>
+<option value="balanceado">Balanceado</option>
+<option value="sniper">Sniper / AWM</option>
+</select>
+
+<button onclick="gerar()">GERAR SENSI ULTRA PLUS</button>
+
+<div class="resultado" id="resultado"></div>
+
+<div class="actions">
+  <button onclick="salvar()">💾 SALVAR</button>
+  <button onclick="compartilhar()">📤 COMPARTILHAR</button>
+  <button onclick="exportar()">📄 EXPORTAR</button>
+  <button onclick="limpar()">🗑 LIMPAR</button>
+</div>
+
+</div>
+
+<div class="footer">© Produções Leozinhuuu</div>
+</div>
+
+<script>
+const modelos={
+Samsung:[
+"A01","A02","A03","A10","A11","A12","A13","A14","A20","A21","A22",
+"A30","A31","A32","A33","A34","A50","A51","A52","A53","A54",
+"M11","M12","M21","M22","M31","M32","M51","M52",
+"S8","S9","S10","S20","S21","S22","S23","S24",
+"Note 8","Note 9","Note 10","Note 20"
+],
+Xiaomi:[
+"Redmi 7","8","9","10","12",
+"Redmi Note 7","8","9","10","11","12","13",
+"Poco M3","M4","M5","X3","X4","X5","F3","F4",
+"Mi 9","10","11","12"
+],
+Motorola:[
+"Moto E6","E7","E20","E22",
+"Moto G5","G6","G7","G8","G9","G10","G20","G22","G30","G31","G32",
+"Edge","Edge 20","Edge 30","Edge 40"
+],
+Realme:[
+"C11","C12","C21","C25","C35","C55",
+"Realme 6","7","8","9","10","11",
+"GT","GT Neo"
+],
+Infinix:[
+"Hot 8","9","10","11","12","30",
+"Note 7","8","10","11","12","30"
+],
+Oppo:[
+"A12","A15","A16","A17","A38","A54","A57",
+"Reno 5","6","7","8","10"
+],
+Vivo:[
+"Y11","Y12","Y15","Y20","Y21","Y33","Y36",
+"V20","V21","V25","V27"
+],
+Asus:[
+"Zenfone 5","6","7","8","9","10",
+"ROG Phone 2","3","5","6","7"
+],
+Apple:[
+"iPhone 7","8","X","XR","XS",
+"11","11 Pro","12","12 Pro",
+"13","13 Pro","14","14 Pro","15"
+],
+Huawei:[
+"P20","P30","P40","P50",
+"Y7","Y9","Nova 5","Nova 9"
+],
+LG:[
+"K40","K50","K52","K62",
+"G7","G8","V30","V40"
+],
+Nokia:[
+"3","5","6","7","8",
+"G10","G20","G21"
+],
+Sony:[
+"Xperia X","XA","XZ","1","5","10"
+],
+Outro:["Android Fraco","Android Médio","Android Forte"]
+};
+
+let sensiAtual="";
+
+function atualizarModelos(){
+  const m=document.getElementById("marca").value;
+  const sel=document.getElementById("modelo");
+  sel.innerHTML="";
+  (modelos[m]||modelos.Outro).forEach(x=>{
+    let o=document.createElement("option");
+    o.text=x;
+    sel.add(o);
+  });
+}
+
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+
+function gerar(){
+  const perfil=document.getElementById("perfil").value;
+
+  let base={geral:170,red:150,x2:135,x4:120,awm:95,free:65,dpi:540,botao:50};
+
+  if(perfil==="rush"){base.geral+=15;base.red+=20}
+  if(perfil==="sniper"){base.awm+=25;base.x4+=15}
+
+  const s={
+    geral:rand(base.geral,base.geral+15),
+    red:rand(base.red,base.red+15),
+    x2:rand(base.x2,base.x2+15),
+    x4:rand(base.x4,base.x4+15),
+    awm:rand(base.awm,base.awm+15),
+    free:rand(base.free,base.free+15),
+    dpi:rand(base.dpi,base.dpi+40),
+    botao:rand(base.botao,base.botao+10)
+  };
+
+  sensiAtual=
+`🔥 SENSI FREE FIRE ULTRA PLUS 🔥
+Perfil: ${perfil.toUpperCase()}
+Geral: ${s.geral}
+Red Dot: ${s.red}
+2x: ${s.x2}
+4x: ${s.x4}
+AWM: ${s.awm}
+Free Look: ${s.free}
+DPI: ${s.dpi}
+Botão: ${s.botao}%`;
+
+  document.getElementById("resultado").innerHTML=`
+  <div class="neon">CONFIGURAÇÃO ULTRA PLUS</div><br>
+  🎯 Geral: <b>${s.geral}</b><br>
+  🔴 Red Dot: <b>${s.red}</b><br>
+  🔍 2x: <b>${s.x2}</b><br>
+  🔭 4x: <b>${s.x4}</b><br>
+  🎯 AWM: <b>${s.awm}</b><br>
+  👁 Free Look: <b>${s.free}</b><br><br>
+  📱 DPI: <b>${s.dpi}</b><br>
+  🔘 Botão: <b>${s.botao}%</b>
+  `;
+}
+
+function salvar(){
+  if(!sensiAtual)return;
+  let lista=JSON.parse(localStorage.getItem("sensis_ultra")||"[]");
+  lista.push(sensiAtual);
+  localStorage.setItem("sensis_ultra",JSON.stringify(lista));
+  alert("Sensi salva!");
+}
+
+function compartilhar(){
+  if(!sensiAtual)return;
+  if(navigator.share){
+    navigator.share({text:sensiAtual});
+  }else{
+    navigator.clipboard.writeText(sensiAtual);
+    alert("Copiado para compartilhar!");
+  }
+}
+
+function exportar(){
+  if(!sensiAtual)return;
+  const blob=new Blob([sensiAtual],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="sensi_leozinhuuu_ultra.txt";
+  a.click();
+}
+
+function limpar(){
+  sensiAtual="";
+  document.getElementById("resultado").innerHTML="";
+}
+</script>
+
+</body>
+</html>
